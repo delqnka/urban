@@ -2,5 +2,14 @@
   "buildCommand": null,
   "installCommand": null,
   "outputDirectory": ".",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/book", "destination": "/en/book", "permanent": false },
+    { "source": "/services", "destination": "/en/services", "permanent": false },
+    { "source": "/about", "destination": "/en/about", "permanent": false },
+    { "source": "/studio", "destination": "/en/studio", "permanent": false },
+    { "source": "/voices", "destination": "/en/voices", "permanent": false },
+    { "source": "/contact", "destination": "/en/contact", "permanent": false },
+    { "source": "/work", "destination": "/en/work", "permanent": false }
+  ]
 }

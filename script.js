@@ -251,7 +251,7 @@
     row.addEventListener('click',(e)=>{
       if(e.target.closest('a,button')) return;
       const slug = row.dataset.service;
-      location.href = 'book.html?service=' + encodeURIComponent(slug);
+      location.href = `/${lang}/book?service=` + encodeURIComponent(slug);
     });
   });
 
