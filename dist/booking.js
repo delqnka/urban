@@ -6512,7 +6512,10 @@ function xp(e) {
   return e || yd("__CLICKA_SALON_SLUG") || gd("clicka:salon") || Wu("NEXT_PUBLIC_SALON_SLUG") || Wu("NEXT_PUBLIC_CLICKA_SALON");
 }
 function kp(e) {
-  return e || yd("__CLICKA_ENGINE_URL") || gd("clicka:engine") || Wu("NEXT_PUBLIC_CLICKA_ENGINE") || Wu("NEXT_PUBLIC_CLICKA_API_URL") || "https://clicka.bg";
+  return e || yd("__CLICKA_ENGINE_URL") || gd("clicka:engine") || Wu("NEXT_PUBLIC_CLICKA_ENGINE") || Wu("NEXT_PUBLIC_CLICKA_API_URL") || // Canonical host (with www). The bare clicka.bg returns a 308 redirect
+  // which kills cross-origin fetches because the redirect response itself
+  // carries no CORS headers — browsers reject the whole chain.
+  "https://www.clicka.bg";
 }
 function wp(e) {
   var t, n, r, u;
