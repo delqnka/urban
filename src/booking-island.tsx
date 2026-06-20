@@ -6,7 +6,7 @@ import {
   type PublicSalon,
   type PublicStaffMember,
   type PublicSlot,
-} from '@clicka/booking-sdk';
+} from './vendor/clicka-booking-sdk';
 
 type Lang = 'en' | 'bg';
 
