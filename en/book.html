@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Book · Urban by Delyana</title>
+<meta name="description" content="Reserve your chair at Urban by Delyana. Booking by Clicka." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body data-page="book" data-lang="en">
+
+<section class="page_hero">
+  <div class="lock">
+    <div class="crumbs"><span class="cap">08</span><span class="cap">Reservations</span></div>
+    <h1 class="display"><span>Reserve your</span> <em>chair.</em></h1>
+    <p class="lede">A consultation precedes every first appointment. Twenty unhurried minutes, no obligation.</p>
+  </div>
+</section>
+
+<section class="section book">
+  <div class="book_hero reveal">
+    <div class="head_row"><span class="num">01</span><span class="cap">How it works</span></div>
+    <h2 class="display_sm" style="margin:18px 0 24px">Choose. Pay. Walk in.</h2>
+    <p>Select a service, a date and a time. Pay the consultation fee. Receive a calm, beautifully written confirmation. The studio will see you on the day.</p>
+
+    <ul class="book_meta" style="margin-top:32px">
+      <li><span>Studio</span><em>Varna, Bulgaria</em></li>
+      <li><span>Hours</span><em>Tue to Sat · 10:00 to 19:00</em></li>
+      <li><span>Reach</span><em>+359 88 000 000</em></li>
+      <li><span>Language</span><em>English &amp; Bulgarian</em></li>
+    </ul>
+
+    <p style="margin-top:42px;color:var(--mute);font-size:12px;letter-spacing:.16em;text-transform:uppercase">Reservations · localised to your language</p>
+  </div>
+
+  <!--
+    Booking integration ─ Clicka SDK
+    React app:
+      import { BookingWidget } from '@clicka/booking';
+      <BookingWidget
+        salonSlug="urban-by-delyana"
+        engineUrl="https://engine.clicka.app"
+        locale={currentLanguage}
+      />
+    Static host (this site):
+      window.ClickaBooking.mount('#clicka_booking', { salonSlug, engineUrl, locale });
+    The locale is bound to data-lang on <body> and forwarded automatically.
+  -->
+  <div class="book_widget reveal">
+    <div id="clicka_booking" data-engine="https://engine.clicka.app"></div>
+  </div>
+</section>
+
+<!-- Place the Clicka SDK loader here when shipping behind a build, or include the host script tag. -->
+<!-- <script src="https://cdn.clicka.app/booking/v1/widget.js" defer></script> -->
+
+<script src="../script.js"></script>
+</body>
+</html>

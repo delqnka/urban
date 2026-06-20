@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Contact · Urban by Delyana</title>
+<meta name="description" content="Reach Urban by Delyana. Varna, Bulgaria. For appointments use the booking page." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body data-page="contact" data-lang="en">
+
+<section class="page_hero">
+  <div class="lock">
+    <div class="crumbs"><span class="cap">07</span><span class="cap">Contact</span></div>
+    <h1 class="display"><span>Write to</span> <em>the studio.</em></h1>
+    <p class="lede">For questions, press, and considered enquiries. For appointments, please use the booking page.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="contact_grid">
+    <form class="contact_form reveal" onsubmit="event.preventDefault();this.querySelector('button').textContent='Thank you. We will reply.'">
+      <div class="field"><label for="name">Your name</label><input id="name" type="text" autocomplete="name" required /></div>
+      <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email" required /></div>
+      <div class="field"><label for="subject">Subject</label>
+        <select id="subject">
+          <option>General enquiry</option>
+          <option>Press</option>
+          <option>Bridal &amp; events</option>
+          <option>Editorial</option>
+        </select>
+      </div>
+      <div class="field"><label for="message">Message</label><textarea id="message" required></textarea></div>
+      <button type="submit" class="btn btn_solid" style="margin-top:14px;justify-self:start"><span>Send</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    </form>
+
+    <aside class="contact_aside reveal">
+      <p>The fastest way to reach us is the booking page. For everything else, the studio reads every message and replies within two working days.</p>
+      <div class="group"><span>Studio</span><p>Кюстенджа 22<br/>Varna 9000, Bulgaria</p></div>
+      <div class="group"><span>Hours</span><p>Tuesday to Saturday · 10:00 to 19:00<br/>Sunday and Monday · By appointment</p></div>
+      <div class="group"><span>Email</span><p>hello@urbanbydelyana.com</p></div>
+      <div class="group"><span>Telephone</span><p>+359 88 000 000</p></div>
+      <div class="group"><span>Follow</span><p><a class="link_under" href="#">Instagram</a> &nbsp; <a class="link_under" href="#">Pinterest</a></p></div>
+    </aside>
+  </div>
+</section>
+
+<script src="../script.js"></script>
+</body>
+</html>

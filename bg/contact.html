@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Контакт · Urban от Деляна</title>
+<meta name="description" content="Свържи се с Urban от Деляна. Варна, България. За резервации използвай страницата за запазване." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body data-page="contact" data-lang="bg">
+
+<section class="page_hero">
+  <div class="lock">
+    <div class="crumbs"><span class="cap">07</span><span class="cap">Контакт</span></div>
+    <h1 class="display"><span>Пиши на</span> <em>студиото.</em></h1>
+    <p class="lede">За въпроси, преса и обмислени запитвания. За резервации, моля използвай страницата за запазване.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="contact_grid">
+    <form class="contact_form reveal" onsubmit="event.preventDefault();this.querySelector('button').textContent='Благодарим. Ще отговорим.'">
+      <div class="field"><label for="name">Име</label><input id="name" type="text" autocomplete="name" required /></div>
+      <div class="field"><label for="email">Имейл</label><input id="email" type="email" autocomplete="email" required /></div>
+      <div class="field"><label for="subject">Тема</label>
+        <select id="subject">
+          <option>Общо запитване</option>
+          <option>Преса</option>
+          <option>Сватбени и събития</option>
+          <option>Редакционно</option>
+        </select>
+      </div>
+      <div class="field"><label for="message">Съобщение</label><textarea id="message" required></textarea></div>
+      <button type="submit" class="btn btn_solid" style="margin-top:14px;justify-self:start"><span>Изпрати</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    </form>
+
+    <aside class="contact_aside reveal">
+      <p>Най бързият начин да ни намериш е страницата за резервации. За всичко останало студиото чете всяко съобщение и отговаря в рамките на два работни дни.</p>
+      <div class="group"><span>Студио</span><p>Кюстенджа 22<br/>Варна 9000, България</p></div>
+      <div class="group"><span>Часове</span><p>Вторник до Събота · 10:00 до 19:00<br/>Неделя и Понеделник · По уговорка</p></div>
+      <div class="group"><span>Имейл</span><p>hello@urbanbydelyana.com</p></div>
+      <div class="group"><span>Телефон</span><p>+359 88 000 000</p></div>
+      <div class="group"><span>Последвай</span><p><a class="link_under" href="#">Instagram</a> &nbsp; <a class="link_under" href="#">Pinterest</a></p></div>
+    </aside>
+  </div>
+</section>
+
+<script src="../script.js"></script>
+</body>
+</html>
