@@ -1,0 +1,12 @@
+{
+  "salonSlug": "urban-by-delyana",
+  "currency": "EUR",
+  "services": [
+    { "slug": "balayage",            "fromPrice": 450, "fromDurationMin": 240, "consultation": true,  "name": { "en": "Balayage",              "bg": "Балеаж" } },
+    { "slug": "dimensional_blonde",  "fromPrice": 550, "fromDurationMin": 300, "consultation": true,  "name": { "en": "Dimensional Blonde",    "bg": "Многомерно русо" } },
+    { "slug": "color_correction",    "fromPrice": 450, "fromDurationMin": null,"consultation": true,  "name": { "en": "Color Correction",      "bg": "Корекция на цвят" } },
+    { "slug": "tonalite_gloss",      "fromPrice": 250, "fromDurationMin": 90,  "consultation": false, "name": { "en": "Tonalité & Gloss",      "bg": "Тонализация и блясък" } },
+    { "slug": "luxury_bond",         "fromPrice": 200, "fromDurationMin": 60,  "consultation": false, "name": { "en": "Luxury Bond Treatment", "bg": "Луксозен ритуал за връзките" } },
+    { "slug": "editorial_color",     "fromPrice": 500, "fromDurationMin": null,"consultation": true,  "name": { "en": "Editorial Color",       "bg": "Авторски цвят" } }
+  ]
+}

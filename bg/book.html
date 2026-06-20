@@ -36,25 +36,16 @@
     <p style="margin-top:42px;color:var(--mute);font-size:12px;letter-spacing:.16em;text-transform:uppercase">Резервации · локализирано спрямо избрания език</p>
   </div>
 
-  <!--
-    Booking integration ─ Clicka SDK
-    React app:
-      import { BookingWidget } from '@clicka/booking';
-      <BookingWidget
-        salonSlug="urban-by-delyana"
-        engineUrl="https://engine.clicka.app"
-        locale={currentLanguage}
-      />
-    Static host (this site):
-      window.ClickaBooking.mount('#clicka_booking', { salonSlug, engineUrl, locale });
-  -->
   <div class="book_widget reveal">
-    <div id="clicka_booking" data-engine="https://engine.clicka.app"></div>
+    <div
+      id="clicka_booking"
+      data-engine="https://clicka.bg"
+      data-salon="urban-by-delyana"
+    ></div>
   </div>
 </section>
 
-<!-- <script src="https://cdn.clicka.app/booking/v1/widget.js" defer></script> -->
-
 <script src="../script.js"></script>
+<script type="module" src="../dist/booking.js"></script>
 </body>
 </html>

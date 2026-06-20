@@ -132,6 +132,67 @@
   },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+  /* motion (npm: motion) loaded via ESM CDN — Emil Kowalski style entrances */
+  import('https://esm.sh/motion@11.18.2').then(({ animate, inView })=>{
+    const tiles = document.querySelectorAll('.reveal_tile');
+    tiles.forEach((el)=>{
+      el.style.opacity = '0';
+      el.style.filter = 'blur(14px)';
+      el.style.transform = 'translateY(28px)';
+      const stagger = Number(el.dataset.stagger || 0) * 0.12;
+      inView(el, ()=>{
+        animate(
+          el,
+          { opacity:[0,1], filter:['blur(14px)','blur(0px)'], y:[28,0] },
+          { duration:1.1, delay:stagger, type:'spring', stiffness:220, damping:30, mass:0.9 }
+        );
+        const img = el.querySelector('img');
+        if(img){
+          img.style.transform = 'scale(1.08)';
+          animate(img, { scale:[1.08,1] }, { duration:1.6, delay:stagger, ease:[0.22,1,0.36,1] });
+        }
+      },{ margin:'0px 0px -12% 0px', amount:.15 });
+    });
+
+    document.querySelectorAll('.reveal').forEach((el)=>{
+      el.classList.remove('reveal');
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(28px)';
+      el.style.filter = 'blur(8px)';
+      inView(el, ()=>{
+        animate(
+          el,
+          { opacity:[0,1], y:[28,0], filter:['blur(8px)','blur(0px)'] },
+          { duration:.9, type:'spring', stiffness:200, damping:28 }
+        );
+      },{ margin:'0px 0px -10% 0px', amount:.1 });
+    });
+  }).catch(()=>{
+    document.querySelectorAll('.reveal_tile,.reveal').forEach(el=>el.classList.add('is_in'));
+  });
+
+  /* ── hero reveal slider ──────────────────────── */
+  document.querySelectorAll('.hero_reveal').forEach(setupHeroReveal);
+  function setupHeroReveal(el){
+    const start = parseFloat(el.dataset.reveal || '50');
+    const set = (p)=>{
+      const v = Math.max(0, Math.min(100, p));
+      el.style.setProperty('--reveal', v + '%');
+    };
+    set(start);
+    let active = false;
+    const fromEvent = (ev)=>{
+      const r = el.getBoundingClientRect();
+      const x = (ev.touches ? ev.touches[0].clientX : ev.clientX) - r.left;
+      set((x / r.width) * 100);
+    };
+    const begin = (ev)=>{ active = true; el.classList.add('is_dragging'); try{ el.setPointerCapture(ev.pointerId); }catch(_){} fromEvent(ev); ev.preventDefault(); };
+    el.addEventListener('pointerdown', begin);
+    el.addEventListener('pointermove',(ev)=>{ if(active) fromEvent(ev); });
+    window.addEventListener('pointerup',()=>{ active = false; el.classList.remove('is_dragging'); });
+    el.addEventListener('pointercancel',()=>{ active = false; el.classList.remove('is_dragging'); });
+  }
+
   /* ── before+after sliders ────────────────────── */
   document.querySelectorAll('[data-ba]').forEach(setupBA);
   function setupBA(el){
@@ -184,6 +245,16 @@
     open.observe(el);
   }
 
+  /* ── service rows → book deep link ───────────── */
+  document.querySelectorAll('.service[data-service]').forEach((row)=>{
+    row.style.cursor = 'pointer';
+    row.addEventListener('click',(e)=>{
+      if(e.target.closest('a,button')) return;
+      const slug = row.dataset.service;
+      location.href = 'book.html?service=' + encodeURIComponent(slug);
+    });
+  });
+
   /* ── Clicka SDK mount ────────────────────────── */
   const mount = document.getElementById('clicka_booking');
   if(mount){
@@ -194,11 +265,15 @@
   }
 
   function mountClickaWidget(node, locale){
+    const params = new URLSearchParams(location.search);
+    const preselect = params.get('service') || node.dataset.service || null;
     if(window.ClickaBooking && typeof window.ClickaBooking.mount === 'function'){
       window.ClickaBooking.mount(node, {
         salonSlug: window.URBAN_SALON_SLUG,
         engineUrl: window.URBAN_ENGINE_URL,
-        locale
+        locale,
+        service: preselect,
+        catalogUrl: '/services.json'
       });
       return;
     }

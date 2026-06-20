@@ -13,8 +13,10 @@
 <body data-page="home" data-lang="bg">
 
 <section class="hero" id="top">
-  <div class="hero_media">
-    <img src="../ruso ruso.jpeg" alt="" />
+  <div class="hero_media hero_reveal" data-reveal="50">
+    <img class="hero_img hero_img_bw" src="../ruso ruso.jpeg" alt="" />
+    <div class="hero_color"><img class="hero_img" src="../ruso ruso.jpeg" alt="" /></div>
+    <button class="hero_handle" aria-label="Дръпни за цвят"><span></span><span></span></button>
     <div class="hero_veil"></div>
   </div>
   <div class="hero_meta">
@@ -69,18 +71,15 @@
   <header class="head">
     <div class="head_row"><span class="num">03</span><span class="cap">Избрани трансформации</span></div>
     <h2 class="display"><span>Работата,</span> <em>без редакция.</em></h2>
-    <p class="head_lede">Дръпни линията. Всяка трансформация по долу е една и съща клиентка, в един и същи стол, в един и същи ден.</p>
+    <p class="head_lede">Всяка трансформация по долу е една и съща клиентка, в един и същи стол, в един и същи ден.</p>
   </header>
 
   <div class="work_grid">
     <article class="case reveal">
       <div class="case_meta"><span class="case_no">№ 01</span><span class="case_service">Корекция на цвят</span></div>
-      <div class="ba" data-ba>
-        <img class="ba_img" src="../rusa platina.jpeg" alt="" />
-        <div class="ba_clip"><img class="ba_img" src="../ruso julto.jpeg" alt="" /></div>
-        <div class="ba_handle"><span class="ba_line"></span><span class="ba_knob"><svg viewBox="0 0 24 24"><path d="M9 6l-4 6 4 6M15 6l4 6 4 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span></div>
-        <span class="ba_tag ba_tag_b">Преди</span><span class="ba_tag ba_tag_a">След</span>
-        <input class="ba_input" type="range" min="0" max="100" value="50" aria-label="Сравни" />
+      <div class="pair">
+        <figure class="tile reveal_tile" data-stagger="0"><img src="../rusa platina.jpeg" alt="" /></figure>
+        <figure class="tile reveal_tile" data-stagger="1"><img src="../ruso julto.jpeg" alt="" /></figure>
       </div>
       <div class="case_body">
         <h3>От месингов оттенък до плътна платина.</h3>
@@ -91,12 +90,9 @@
 
     <article class="case reveal">
       <div class="case_meta"><span class="case_no">№ 02</span><span class="case_service">Многомерно русо</span></div>
-      <div class="ba" data-ba>
-        <img class="ba_img" src="../rusa toni.jpeg" alt="" />
-        <div class="ba_clip"><img class="ba_img" src="../toni.jpeg" alt="" /></div>
-        <div class="ba_handle"><span class="ba_line"></span><span class="ba_knob"><svg viewBox="0 0 24 24"><path d="M9 6l-4 6 4 6M15 6l4 6 4 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span></div>
-        <span class="ba_tag ba_tag_b">Преди</span><span class="ba_tag ba_tag_a">След</span>
-        <input class="ba_input" type="range" min="0" max="100" value="50" aria-label="Сравни" />
+      <div class="pair">
+        <figure class="tile reveal_tile" data-stagger="0"><img src="../rusa toni.jpeg" alt="" /></figure>
+        <figure class="tile reveal_tile" data-stagger="1"><img src="../toni.jpeg" alt="" /></figure>
       </div>
       <div class="case_body">
         <h3>Тихо, светещо русо.</h3>
@@ -125,7 +121,7 @@
 <section class="section about">
   <div class="about_media reveal">
     <img src="../IMG_5954.jpg" alt="Деляна, основател на Urban" />
-    <span class="about_caption">Деляна · Основател и колорист</span>
+    <span class="about_caption">Любимото на Деляна · Основател и колорист</span>
   </div>
   <div class="about_copy">
     <div class="head_row"><span class="num">05</span><span class="cap">Колористът</span></div>
