@@ -255,44 +255,6 @@
     });
   });
 
-  /* ── Clicka SDK mount ────────────────────────── */
-  const mount = document.getElementById('clicka_booking');
-  if(mount){
-    window.URBAN_LOCALE = lang;
-    window.URBAN_SALON_SLUG = 'urban-by-delyana';
-    window.URBAN_ENGINE_URL = mount.dataset.engine || 'https://engine.clicka.app';
-    mountClickaWidget(mount, lang);
-  }
-
-  function mountClickaWidget(node, locale){
-    const params = new URLSearchParams(location.search);
-    const preselect = params.get('service') || node.dataset.service || null;
-    if(window.ClickaBooking && typeof window.ClickaBooking.mount === 'function'){
-      window.ClickaBooking.mount(node, {
-        salonSlug: window.URBAN_SALON_SLUG,
-        engineUrl: window.URBAN_ENGINE_URL,
-        locale,
-        service: preselect,
-        catalogUrl: '/services.json'
-      });
-      return;
-    }
-    // Awaiting SDK. Render a quiet, on brand placeholder.
-    node.innerHTML = `
-      <div class="clicka_pending">
-        <span class="cap">${locale==='bg'?'Резервации':'Reservations'}</span>
-        <p class="clicka_pending_t">${locale==='bg'?'Зареждане на резервационния модул':'Loading the booking module'}</p>
-        <div class="clicka_pulse"></div>
-        <p class="book_note">${locale==='bg'?'Един момент':'One moment'}</p>
-      </div>`;
-  }
-
-  // Public API for the host app or SDK init script.
-  window.UrbanBooking = {
-    mount: (selector)=>{
-      const n = typeof selector === 'string' ? document.querySelector(selector) : selector;
-      if(n) mountClickaWidget(n, lang);
-    },
-    locale: lang
-  };
+  /* Clicka SDK mount is handled by dist/booking.js (React island) directly on
+     the #clicka_booking element. No bridge code here. */
 })();
