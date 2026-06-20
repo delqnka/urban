@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="../dist/style.css" />
 </head>
 <body data-page="services" data-lang="en">
 
@@ -29,7 +30,7 @@
         <p>Painted lights that follow the architecture of your hair. Soft at the root, luminous through the lengths. Designed to grow out gracefully and read as natural in any light.</p>
       </div>
       <span class="service_from"><span class="service_price">from 450 €</span><span>from 4h · by consultation</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=balayage"><span>Book</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="balayage"><span>Book</span></a>
     </li>
     <li class="service reveal" data-service="dimensional_blonde">
       <span class="service_no">II</span>
@@ -38,7 +39,7 @@
         <p>Multitonal blondes built in layers. Fine highlights, soft babylights and a custom toner mixed to the warmth of your skin and the season.</p>
       </div>
       <span class="service_from"><span class="service_price">from 550 €</span><span>from 5h · by consultation</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=dimensional_blonde"><span>Book</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="dimensional_blonde"><span>Book</span></a>
     </li>
     <li class="service reveal" data-service="color_correction">
       <span class="service_no">III</span>
@@ -47,7 +48,7 @@
         <p>Brass, banding, breakage, regrowth. A correction is never a shortcut. Patience, integrity and the right protocol for your specific history.</p>
       </div>
       <span class="service_from"><span class="service_price">from 450 €</span><span>by consultation only</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=color_correction"><span>Book</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="color_correction"><span>Book</span></a>
     </li>
     <li class="service reveal" data-service="tonalite_gloss">
       <span class="service_no">IV</span>
@@ -56,7 +57,7 @@
         <p>A standalone toner ritual to refresh and refine the color you already love. Beautiful between full appointments. Always finished by hand.</p>
       </div>
       <span class="service_from"><span class="service_price">from 250 €</span><span>from 90 minutes</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=tonalite_gloss"><span>Book</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="tonalite_gloss"><span>Book</span></a>
     </li>
     <li class="service reveal" data-service="luxury_bond">
       <span class="service_no">V</span>
@@ -65,7 +66,7 @@
         <p>A bespoke restorative protocol. Olaplex layered with K18, hydrating masque and finishing oils. Rebuilds the architecture of the hair fibre.</p>
       </div>
       <span class="service_from"><span class="service_price">from 200 €</span><span>from 60 minutes</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=luxury_bond"><span>Book</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="luxury_bond"><span>Book</span></a>
     </li>
     <li class="service reveal" data-service="editorial_color">
       <span class="service_no">VI</span>
@@ -74,7 +75,7 @@
         <p>For the woman who wants something the room does not have yet. Custom mauves, smoked lilacs, silvered blondes. Created in conversation, never from a chart.</p>
       </div>
       <span class="service_from"><span class="service_price">from 500 €</span><span>by consultation only</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=editorial_color"><span>Book</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="editorial_color"><span>Book</span></a>
     </li>
   </ol>
 </section>
@@ -107,9 +108,10 @@
 
 <section class="section" style="text-align:center">
   <h2 class="display" style="margin:0 auto 32px;max-width:18ch"><span>Choose a service,</span> <em>and begin.</em></h2>
-  <a class="btn btn_solid" href="book.html"><span>Book a consultation</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+  <a class="btn btn_solid" href="#" data-book-service><span>Book a consultation</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
 </section>
 
 <script src="../script.js"></script>
+<script type="module" src="../dist/booking.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="../dist/style.css" />
 </head>
 <body data-page="services" data-lang="bg">
 
@@ -29,7 +30,7 @@
         <p>Рисувани светли акценти, които следват архитектурата на косата. Меки в корена, светещи в дължините. Растят грациозно и се четат естествено във всяка светлина.</p>
       </div>
       <span class="service_from"><span class="service_price">от 450 €</span><span>от 4ч · с консултация</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=balayage"><span>Запази</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="balayage"><span>Запази</span></a>
     </li>
     <li class="service reveal" data-service="dimensional_blonde">
       <span class="service_no">II</span>
@@ -38,7 +39,7 @@
         <p>Многотонни блондове в слоеве. Фини кичури, меки бейбилайтс и индивидуален тонер, смесен спрямо тена на кожата и сезона.</p>
       </div>
       <span class="service_from"><span class="service_price">от 550 €</span><span>от 5ч · с консултация</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=dimensional_blonde"><span>Запази</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="dimensional_blonde"><span>Запази</span></a>
     </li>
     <li class="service reveal" data-service="color_correction">
       <span class="service_no">III</span>
@@ -47,7 +48,7 @@
         <p>Месинг, ивици, изтънели краища, обрасли корени. Корекцията никога не е пряк път. Търпение, цялост и протокол за конкретната история на косата.</p>
       </div>
       <span class="service_from"><span class="service_price">от 450 €</span><span>само с консултация</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=color_correction"><span>Запази</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="color_correction"><span>Запази</span></a>
     </li>
     <li class="service reveal" data-service="tonalite_gloss">
       <span class="service_no">IV</span>
@@ -56,7 +57,7 @@
         <p>Самостоятелен ритуал за освежаване и фина настройка. Красиво между основните визити. Винаги завършвано на ръка.</p>
       </div>
       <span class="service_from"><span class="service_price">от 250 €</span><span>от 90 минути</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=tonalite_gloss"><span>Запази</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="tonalite_gloss"><span>Запази</span></a>
     </li>
     <li class="service reveal" data-service="luxury_bond">
       <span class="service_no">V</span>
@@ -65,7 +66,7 @@
         <p>Възстановяващ протокол по поръчка. Olaplex, K18, овлажняваща маска и финални масла. Изграждат отново архитектурата на влакното.</p>
       </div>
       <span class="service_from"><span class="service_price">от 200 €</span><span>от 60 минути</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=luxury_bond"><span>Запази</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="luxury_bond"><span>Запази</span></a>
     </li>
     <li class="service reveal" data-service="editorial_color">
       <span class="service_no">VI</span>
@@ -74,7 +75,7 @@
         <p>За жената, която иска нещо, което залата още няма. Авторски лилави, опушени, сребристи. Създавани в разговор, никога от каталог.</p>
       </div>
       <span class="service_from"><span class="service_price">от 500 €</span><span>само с консултация</span></span>
-    <a class="btn btn_ghost service_book" href="book.html?service=editorial_color"><span>Запази</span></a>
+    <a class="btn btn_ghost service_book" href="#" data-book-service="editorial_color"><span>Запази</span></a>
     </li>
   </ol>
 </section>
@@ -107,9 +108,10 @@
 
 <section class="section" style="text-align:center">
   <h2 class="display" style="margin:0 auto 32px;max-width:18ch"><span>Избери услуга,</span> <em>и започни.</em></h2>
-  <a class="btn btn_solid" href="book.html"><span>Запази консултация</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+  <a class="btn btn_solid" href="#" data-book-service><span>Запази консултация</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
 </section>
 
 <script src="../script.js"></script>
+<script type="module" src="../dist/booking.js"></script>
 </body>
 </html>

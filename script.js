@@ -46,7 +46,7 @@
         <span class="lang_sep">/</span>
         <a class="lang_btn ${lang==='bg'?'is_active':''}" href="../bg/${file(page)}">BG</a>
       </div>
-      <a class="btn btn_ghost" href="${link('book')}">${t.nav.book}</a>
+      <a class="btn btn_ghost" href="#" data-book-service>${t.nav.book}</a>
       <button class="menu_toggle" aria-label="${t.menu}">
         <svg viewBox="0 0 24 24" width="18" height="18"><path d="M3 7h18M3 17h18" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
       </button>
@@ -64,7 +64,8 @@
       </button>
     </div>
     <div class="sheet_links">
-      ${navOrder.concat(['book']).map(p=>`<a href="${link(p)}">${t.nav[p]} <em>↗</em></a>`).join('')}
+      ${navOrder.map(p=>`<a href="${link(p)}">${t.nav[p]} <em>↗</em></a>`).join('')}
+      <a href="#" data-book-service>${t.nav.book} <em>↗</em></a>
     </div>
     <div class="sheet_foot">
       <div class="lang">
@@ -245,13 +246,19 @@
     open.observe(el);
   }
 
-  /* ── service rows → book deep link ───────────── */
+  /* ── service rows → open booking modal ───────── */
   document.querySelectorAll('.service[data-service]').forEach((row)=>{
     row.style.cursor = 'pointer';
     row.addEventListener('click',(e)=>{
       if(e.target.closest('a,button')) return;
-      const slug = row.dataset.service;
-      location.href = `/${lang}/book?service=` + encodeURIComponent(slug);
+      const slug = row.dataset.service || '';
+      const ev = new CustomEvent('click', { bubbles: true });
+      const trigger = document.createElement('a');
+      trigger.setAttribute('data-book-service', slug);
+      trigger.style.display = 'none';
+      document.body.appendChild(trigger);
+      trigger.dispatchEvent(ev);
+      trigger.remove();
     });
   });
 
