@@ -262,12 +262,30 @@
     });
   });
 
-  /* Block default navigation for [data-book-service] triggers — the SDK
-     attaches its own click handler in dist/booking.js to open the modal.
-     This runs first so href="#" never scrolls to top, even if the SDK
-     script is slow or fails to load. */
+  /* Block default navigation for any booking trigger so href="#" never
+     scrolls to top even if the SDK script is slow or fails to load.
+     The SDK attaches its own click handler in dist/booking.js (matches
+     [data-clicka-book], [data-book-service], [data-book]). */
   document.addEventListener('click', (e) => {
-    const t = e.target instanceof Element ? e.target.closest('[data-book-service]') : null;
+    const t = e.target instanceof Element
+      ? e.target.closest('[data-clicka-book],[data-book-service],[data-book]')
+      : null;
     if (t) e.preventDefault();
   }, true);
+
+  /* Auto-load the booking SDK on every page so the modal + click
+     delegation work site-wide, not just on /en/book and /bg/book.
+     Idempotent: skips if already loaded by an inline <script>. */
+  if (!document.querySelector('script[data-clicka-booking-js]')) {
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = '/dist/style.css';
+    css.setAttribute('data-clicka-booking-css', '');
+    document.head.appendChild(css);
+    const js = document.createElement('script');
+    js.type = 'module';
+    js.src = '/dist/booking.js';
+    js.setAttribute('data-clicka-booking-js', '');
+    document.head.appendChild(js);
+  }
 })();
