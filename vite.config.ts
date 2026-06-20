@@ -4,6 +4,10 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
+    'process.env': '{}',
+  },
   build: {
     outDir: 'dist',
     emptyOutDir: true,

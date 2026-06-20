@@ -262,6 +262,12 @@
     });
   });
 
-  /* Clicka SDK mount is handled by dist/booking.js (React island) directly on
-     the #clicka_booking element. No bridge code here. */
+  /* Block default navigation for [data-book-service] triggers — the SDK
+     attaches its own click handler in dist/booking.js to open the modal.
+     This runs first so href="#" never scrolls to top, even if the SDK
+     script is slow or fails to load. */
+  document.addEventListener('click', (e) => {
+    const t = e.target instanceof Element ? e.target.closest('[data-book-service]') : null;
+    if (t) e.preventDefault();
+  }, true);
 })();
