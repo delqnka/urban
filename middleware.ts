@@ -9,11 +9,6 @@ export const config = {
     '/admin',
     '/admin/:path*',
     '/api/admin/:path*',
-    // /claim is the engine's owner-onboarding flow — /admin redirects there
-    // when the salon has no owner yet. Proxy it too so the browser stays on
-    // the salon's domain instead of hitting a 404 in this static site.
-    '/claim',
-    '/claim/:path*',
   ],
 };
 
