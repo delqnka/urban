@@ -9,6 +9,10 @@ export const config = {
     '/admin',
     '/admin/:path*',
     '/api/admin/:path*',
+    // Engine HTML references /_next/static chunks — without proxying them the
+    // sign-in page renders as bare HTML, React never hydrates, and the Suspense
+    // fallback "Зареждане..." sticks forever.
+    '/_next/:path*',
   ],
 };
 
