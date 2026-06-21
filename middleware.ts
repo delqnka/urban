@@ -15,6 +15,10 @@ export default async function middleware(request: Request): Promise<Response> {
   const target = new URL(incoming.pathname + incoming.search, ENGINE_ORIGIN);
 
   const headers = new Headers(request.headers);
+  // Vercel overwrites x-forwarded-host on inbound to the destination project,
+  // so we use a custom header that Vercel won't touch. Engine reads it via
+  // getBrowserHost() with x-clicka-host taking precedence.
+  headers.set('x-clicka-host', incoming.host);
   headers.set('x-forwarded-host', incoming.host);
   headers.set('x-forwarded-proto', incoming.protocol.replace(':', ''));
   // Drop Host so fetch sets it to the target (www.clicka.bg). Otherwise the
