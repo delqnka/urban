@@ -3,11 +3,6 @@
   "installCommand": null,
   "outputDirectory": ".",
   "cleanUrls": true,
-  "rewrites": [
-    { "source": "/admin", "destination": "https://www.clicka.bg/admin" },
-    { "source": "/admin/:path*", "destination": "https://www.clicka.bg/admin/:path*" },
-    { "source": "/api/admin/:path*", "destination": "https://www.clicka.bg/api/admin/:path*" }
-  ],
   "redirects": [
     { "source": "/book", "destination": "/en/book", "permanent": false },
     { "source": "/services", "destination": "/en/services", "permanent": false },
