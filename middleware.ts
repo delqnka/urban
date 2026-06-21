@@ -8,11 +8,15 @@ export const config = {
   matcher: [
     '/admin',
     '/admin/:path*',
-    '/api/admin/:path*',
     // Engine HTML references /_next/static chunks — without proxying them the
     // sign-in page renders as bare HTML, React never hydrates, and the Suspense
     // fallback "Зареждане..." sticks forever.
     '/_next/:path*',
+    // Proxy the entire engine API surface, not just /api/admin. The admin tabs
+    // call /api/stripe/*, /api/upload, /api/domain-connect, /api/bookings, etc.
+    // Each of those returned 404 from this Vercel project before, with no log
+    // trail on the engine, because requests never reached it.
+    '/api/:path*',
   ],
 };
 
