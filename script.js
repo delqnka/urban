@@ -122,55 +122,34 @@
   document.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 
-  /* ── reveal observer ─────────────────────────── */
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add('is_in');
-        io.unobserve(e.target);
+  /* ── reveal observer — failsafe pattern ──────────────────────────────────────
+     Only elements that start OFF-screen get the `.reveal_init` class (which
+     hides them in CSS); then an IntersectionObserver flips `.is_in` when they
+     scroll in. Elements already in viewport on load stay visible — no flash. */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const initAndObserve = (selector)=>{
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('is_in');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold: 0.1, rootMargin:'0px 0px -6% 0px'});
+
+    document.querySelectorAll(selector).forEach(el=>{
+      if(reduceMotion) return;
+      const r = el.getBoundingClientRect();
+      const offscreen = r.top > window.innerHeight * 0.9;
+      if(offscreen){
+        el.classList.add('reveal_init');
+        io.observe(el);
       }
     });
-  },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  };
 
-  /* motion (npm: motion) loaded via ESM CDN — Emil Kowalski style entrances */
-  import('https://esm.sh/motion@11.18.2').then(({ animate, inView })=>{
-    const tiles = document.querySelectorAll('.reveal_tile');
-    tiles.forEach((el)=>{
-      el.style.opacity = '0';
-      el.style.filter = 'blur(14px)';
-      el.style.transform = 'translateY(28px)';
-      const stagger = Number(el.dataset.stagger || 0) * 0.12;
-      inView(el, ()=>{
-        animate(
-          el,
-          { opacity:[0,1], filter:['blur(14px)','blur(0px)'], y:[28,0] },
-          { duration:1.1, delay:stagger, type:'spring', stiffness:220, damping:30, mass:0.9 }
-        );
-        const img = el.querySelector('img');
-        if(img){
-          img.style.transform = 'scale(1.08)';
-          animate(img, { scale:[1.08,1] }, { duration:1.6, delay:stagger, ease:[0.22,1,0.36,1] });
-        }
-      },{ margin:'0px 0px -12% 0px', amount:.15 });
-    });
-
-    document.querySelectorAll('.reveal').forEach((el)=>{
-      el.classList.remove('reveal');
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(28px)';
-      el.style.filter = 'blur(8px)';
-      inView(el, ()=>{
-        animate(
-          el,
-          { opacity:[0,1], y:[28,0], filter:['blur(8px)','blur(0px)'] },
-          { duration:.9, type:'spring', stiffness:200, damping:28 }
-        );
-      },{ margin:'0px 0px -10% 0px', amount:.1 });
-    });
-  }).catch(()=>{
-    document.querySelectorAll('.reveal_tile,.reveal').forEach(el=>el.classList.add('is_in'));
-  });
+  requestAnimationFrame(()=> initAndObserve('.reveal'));
 
   /* ── hero reveal slider ──────────────────────── */
   document.querySelectorAll('.hero_reveal').forEach(setupHeroReveal);
@@ -288,4 +267,386 @@
     js.setAttribute('data-clicka-booking-js', '');
     document.head.appendChild(js);
   }
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   ▌ Premium tier — motion layer
+   Adds: film grain, scroll progress, precision cursor, magnetic CTAs,
+   character-stagger headline, image-peek for services, gentle parallax.
+   All progressive — reduced-motion respected, no critical path. ▌
+   ═══════════════════════════════════════════════════════════════ */
+(function premium(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine   = window.matchMedia('(pointer: fine)').matches;
+  const docEl  = document.documentElement;
+
+  /* ─── film grain layer ────────────────────────── */
+  const grain = document.createElement('div');
+  grain.className = 'grain';
+  grain.setAttribute('aria-hidden','true');
+  document.body.appendChild(grain);
+
+  /* ─── scroll progress hairline ────────────────── */
+  const prog = document.createElement('div');
+  prog.className = 'sprog';
+  prog.setAttribute('aria-hidden','true');
+  document.body.appendChild(prog);
+  const onProg = ()=>{
+    const max = docEl.scrollHeight - window.innerHeight;
+    const p = max > 0 ? (window.scrollY / max) * 100 : 0;
+    prog.style.setProperty('--p', p.toFixed(2)+'%');
+  };
+  window.addEventListener('scroll', onProg, {passive:true});
+  onProg();
+
+  /* ─── precision cursor (desktop, fine pointer) ── */
+  let cur, ring;
+  if(fine && !reduce){
+    cur  = document.createElement('div'); cur.className  = 'cur';  cur.setAttribute('aria-hidden','true');
+    ring = document.createElement('div'); ring.className = 'cur_ring'; ring.setAttribute('aria-hidden','true');
+    document.body.appendChild(cur); document.body.appendChild(ring);
+
+    let cx=0, cy=0, rx=0, ry=0, tx=0, ty=0;
+    const onMove = (e)=>{ tx = e.clientX; ty = e.clientY; };
+    window.addEventListener('pointermove', onMove, {passive:true});
+
+    const tick = ()=>{
+      cx += (tx - cx) * 0.55;
+      cy += (ty - cy) * 0.55;
+      rx += (tx - rx) * 0.18;
+      ry += (ty - ry) * 0.18;
+      cur.style.transform  = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+
+    /* hover state on interactive targets */
+    const hoverSel = 'a,button,input,textarea,select,.tile,.service,.cal_c,.slot';
+    document.addEventListener('pointerover',(e)=>{
+      if(e.target.closest(hoverSel)){ cur.classList.add('is_hover'); ring.classList.add('is_hover'); }
+    });
+    document.addEventListener('pointerout',(e)=>{
+      if(e.target.closest(hoverSel)){ cur.classList.remove('is_hover'); ring.classList.remove('is_hover'); }
+    });
+
+    /* drag state on the hero before/after handle */
+    document.addEventListener('pointerdown',(e)=>{
+      if(e.target.closest('.hero_reveal,.ba')){ cur.classList.add('is_drag'); ring.classList.add('is_drag'); }
+    });
+    window.addEventListener('pointerup',()=>{
+      cur.classList.remove('is_drag'); ring.classList.remove('is_drag');
+    });
+  }
+
+  /* ─── magnetic CTAs ───────────────────────────── */
+  if(fine && !reduce){
+    document.querySelectorAll('.btn_solid,.btn_ghost').forEach((btn)=>{
+      const strength = 14;
+      btn.addEventListener('pointermove',(e)=>{
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width/2;
+        const y = e.clientY - r.top  - r.height/2;
+        btn.style.transform = `translate(${(x/r.width)*strength}px, ${(y/r.height)*strength}px)`;
+      });
+      btn.addEventListener('pointerleave',()=>{
+        btn.style.transform = '';
+      });
+    });
+  }
+
+  /* ─── character-stagger headline ──────────────── */
+  const splitDisplay = (el)=>{
+    if(el.dataset.split === '1') return;
+    el.dataset.split = '1';
+    /* preserve em / span structure: walk text nodes, wrap each non-space char */
+    const wrap = (text)=>{
+      const frag = document.createDocumentFragment();
+      const words = text.split(/(\s+)/);
+      let idx = 0;
+      words.forEach((w)=>{
+        if(/^\s+$/.test(w)){ frag.appendChild(document.createTextNode(w)); return; }
+        const word = document.createElement('span');
+        word.className = 'word';
+        for(const ch of w){
+          const c = document.createElement('span');
+          c.className = 'char';
+          c.style.setProperty('--i', idx++);
+          c.textContent = ch;
+          word.appendChild(c);
+        }
+        frag.appendChild(word);
+      });
+      return frag;
+    };
+    const walk = (node)=>{
+      const kids = [...node.childNodes];
+      kids.forEach((n)=>{
+        if(n.nodeType === 3 && n.nodeValue.trim()){
+          n.parentNode.replaceChild(wrap(n.nodeValue), n);
+        } else if(n.nodeType === 1){
+          walk(n);
+        }
+      });
+    };
+    walk(el);
+  };
+
+  const lit = (el)=> requestAnimationFrame(()=> el.classList.add('is_lit'));
+
+  document.querySelectorAll('.hero .display, .hero .display_sm').forEach((el)=>{
+    splitDisplay(el);
+    lit(el);
+  });
+  /* also light up the badge if present */
+  document.querySelectorAll('.hero').forEach((h)=> h.classList.add('is_lit'));
+
+  /* below-the-fold displays: split on intersect */
+  if('IntersectionObserver' in window && !reduce){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach((e)=>{
+        if(e.isIntersecting){
+          splitDisplay(e.target);
+          lit(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.18, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('section:not(.hero) .display, section:not(.hero) .display_sm').forEach((el)=>{
+      io.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.display,.display_sm').forEach((el)=>{ splitDisplay(el); lit(el); });
+  }
+
+  /* ─── inject hero badge + handle pulse ────────── */
+  const hero = document.querySelector('.hero .hero_copy');
+  if(hero && !hero.querySelector('.hero_badge')){
+    const html = (document.body.dataset.lang === 'bg')
+      ? '<span class="dotlive"></span><span>Атeлие за цвят · Варна</span>'
+      : '<span class="dotlive"></span><span>Color atelier · Varna</span>';
+    const badge = document.createElement('span');
+    badge.className = 'hero_badge';
+    badge.innerHTML = html;
+    hero.insertBefore(badge, hero.firstChild);
+  }
+  const handle = document.querySelector('.hero_handle');
+  if(handle){
+    handle.classList.add('is_pulse');
+    handle.addEventListener('pointerdown', ()=> handle.classList.remove('is_pulse'), {once:true});
+  }
+
+  /* ─── service row image peek ──────────────────── */
+  const peekMap = {
+    balayage: '../rusa toni.jpeg',
+    dimensional_blonde: '../toni.jpeg',
+    color_correction: '../rusa platina.jpeg'
+  };
+  document.querySelectorAll('.service[data-service]').forEach((row)=>{
+    const slug = row.dataset.service;
+    const src = peekMap[slug];
+    if(!src || row.querySelector('.service_peek')) return;
+    const peek = document.createElement('div');
+    peek.className = 'service_peek';
+    peek.setAttribute('aria-hidden','true');
+    peek.innerHTML = `<img src="${src}" alt=""/>`;
+    row.appendChild(peek);
+  });
+
+  /* ─── gentle parallax on tiles ────────────────── */
+  if(!reduce && 'IntersectionObserver' in window){
+    const tiles = document.querySelectorAll('.tile');
+    if(tiles.length){
+      let ticking = false;
+      const onTick = ()=>{
+        tiles.forEach((t)=>{
+          const r = t.getBoundingClientRect();
+          if(r.bottom < 0 || r.top > window.innerHeight) return;
+          const mid = r.top + r.height/2;
+          const off = (window.innerHeight/2 - mid) / window.innerHeight; /* -.5 to .5 */
+          const img = t.querySelector('img');
+          if(img) img.style.transform = `translateY(${(off*22).toFixed(1)}px) scale(1.06)`;
+        });
+        ticking = false;
+      };
+      window.addEventListener('scroll',()=>{
+        if(!ticking){ requestAnimationFrame(onTick); ticking = true; }
+      },{passive:true});
+      onTick();
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   ▌ Showcase: pair → full-bleed swipe carousel
+   Each image is huge. Swipe / drag / arrows to advance. Active
+   slide does a slow Ken-Burns zoom while idle.
+   ═══════════════════════════════════════════════════════════════ */
+(function swipePairs(){
+  const lang = document.body.dataset.lang || 'en';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const t = {
+    before: lang === 'bg' ? 'Преди' : 'Before',
+    after:  lang === 'bg' ? 'След'  : 'After',
+    hint:   lang === 'bg' ? 'Плъзни ←→' : 'Swipe ←→',
+    of:     lang === 'bg' ? 'от' : 'of'
+  };
+
+  document.querySelectorAll('.case .pair').forEach((pair)=>{
+    const tiles = [...pair.querySelectorAll('.tile')];
+    if(tiles.length < 2) return;
+
+    /* prep */
+    pair.classList.add('is_swipe');
+    pair.setAttribute('role','region');
+    pair.setAttribute('aria-roledescription','carousel');
+    pair.setAttribute('aria-label','Color transformation');
+    tiles.forEach((t)=>{ t.setAttribute('aria-hidden','true'); });
+
+    /* tag, counter, dots, arrows, hint, progress */
+    const total = tiles.length;
+    const tagWrap = document.createElement('div');
+    tagWrap.innerHTML = `
+      <div class="sw_prog" aria-hidden="true"></div>
+      <span class="sw_tag"><span class="dotlive"></span><span class="sw_tag_t">${t.before}</span></span>
+      <span class="sw_count">
+        <span class="sw_count_n">01</span>
+        <span class="sw_count_s">${t.of} ${String(total).padStart(2,'0')}</span>
+      </span>
+      <div class="sw_dots" role="tablist" aria-label="Slide">
+        ${tiles.map((_,i)=>`<button class="sw_dot${i===0?' is_on':''}" data-i="${i}" aria-label="Slide ${i+1}"></button>`).join('')}
+      </div>
+      <button class="sw_arrow is_prev" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+      </button>
+      <button class="sw_arrow is_next" aria-label="Next">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+      </button>
+      <span class="sw_hint"><span>↔</span><span>${t.hint}</span></span>
+    `;
+    while(tagWrap.firstChild) pair.appendChild(tagWrap.firstChild);
+
+    const tag   = pair.querySelector('.sw_tag');
+    const tagT  = pair.querySelector('.sw_tag_t');
+    const cntN  = pair.querySelector('.sw_count_n');
+    const dots  = [...pair.querySelectorAll('.sw_dot')];
+    const prog  = pair.querySelector('.sw_prog');
+    const prev  = pair.querySelector('.sw_arrow.is_prev');
+    const next  = pair.querySelector('.sw_arrow.is_next');
+
+    let i = 0;
+    let w = pair.getBoundingClientRect().width;
+    let dx = 0;          /* live drag delta */
+    let active = false;
+    let startX = 0;
+    let lockedAxis = null; /* 'x' or 'y' */
+
+    const place = (idx, drag=0)=>{
+      tiles.forEach((tile, n)=>{
+        const off = (n - idx) * w + drag;
+        /* opacity: slight darken for non-active */
+        const dist = Math.abs(n - idx - drag/w);
+        const o = Math.max(.55, 1 - dist*.45);
+        tile.style.setProperty('--x', off + 'px');
+        tile.style.setProperty('--o', o.toFixed(3));
+        tile.classList.toggle('is_idle', n === idx && drag === 0);
+      });
+    };
+
+    const updateChrome = (idx)=>{
+      cntN.textContent = String(idx+1).padStart(2,'0');
+      dots.forEach((d,n)=> d.classList.toggle('is_on', n === idx));
+      /* progress: idx 0 → 50%, idx 1 → 100% (for 2 slides). General formula: */
+      const pct = total === 1 ? 100 : Math.round(((idx+1)/total)*100);
+      prog.style.setProperty('--pp', pct + '%');
+      /* tag: 0 = Before, last = After, middle = step n */
+      if(idx === 0){ tag.classList.remove('is_after'); tagT.textContent = t.before; }
+      else if(idx === total - 1){ tag.classList.add('is_after'); tagT.textContent = t.after; }
+      else{ tag.classList.remove('is_after'); tagT.textContent = `· ${idx+1}`; }
+    };
+
+    const go = (n)=>{
+      i = Math.max(0, Math.min(total-1, n));
+      place(i, 0);
+      updateChrome(i);
+    };
+
+    /* init */
+    new ResizeObserver(()=>{ w = pair.getBoundingClientRect().width; place(i,0); }).observe(pair);
+    requestAnimationFrame(()=> go(0));
+
+    /* arrows + dots */
+    prev.addEventListener('click',()=> go(i-1));
+    next.addEventListener('click',()=> go(i+1));
+    dots.forEach((d)=> d.addEventListener('click',()=> go(parseInt(d.dataset.i,10))));
+
+    /* keyboard */
+    pair.tabIndex = 0;
+    pair.addEventListener('keydown',(e)=>{
+      if(e.key === 'ArrowLeft'){ go(i-1); e.preventDefault(); }
+      if(e.key === 'ArrowRight'){ go(i+1); e.preventDefault(); }
+    });
+
+    /* drag */
+    pair.addEventListener('pointerdown',(ev)=>{
+      if(ev.target.closest('.sw_arrow,.sw_dot')) return;
+      active = true; lockedAxis = null;
+      startX = ev.clientX; dx = 0;
+      pair.classList.add('is_drag','is_touched');
+      try{ pair.setPointerCapture(ev.pointerId); }catch(_){}
+    });
+    pair.addEventListener('pointermove',(ev)=>{
+      if(!active) return;
+      dx = ev.clientX - startX;
+      const dy = Math.abs(ev.movementY);
+      if(lockedAxis === null && (Math.abs(dx) > 6 || dy > 6)){
+        lockedAxis = Math.abs(dx) > dy ? 'x' : 'y';
+      }
+      if(lockedAxis === 'x'){
+        ev.preventDefault();
+        /* resistance at the edges */
+        let drag = dx;
+        if((i === 0 && drag > 0) || (i === total-1 && drag < 0)) drag *= .35;
+        place(i, drag);
+      }
+    });
+    const release = ()=>{
+      if(!active) return;
+      active = false;
+      pair.classList.remove('is_drag');
+      const thresh = Math.min(120, w * .18);
+      if(lockedAxis === 'x' && Math.abs(dx) > thresh){
+        go(i + (dx < 0 ? 1 : -1));
+      } else {
+        place(i, 0);
+      }
+      dx = 0; lockedAxis = null;
+    };
+    pair.addEventListener('pointerup', release);
+    pair.addEventListener('pointercancel', release);
+    pair.addEventListener('pointerleave', (ev)=>{ if(active) release(); });
+
+    /* on first reveal: animate hint + a teaser nudge */
+    if(!reduce && 'IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach((e)=>{
+          if(!e.isIntersecting) return;
+          pair.classList.add('is_lit');
+          /* nudge: 0 → -28px → 0 over 1.4s, then settle */
+          const start = performance.now();
+          const dur = 1400;
+          const tick = (now)=>{
+            if(active || pair.classList.contains('is_touched')) return;
+            const k = Math.min(1,(now-start)/dur);
+            const eased = Math.sin(k * Math.PI);
+            place(i, -eased * 24);
+            if(k < 1) requestAnimationFrame(tick); else place(i, 0);
+          };
+          setTimeout(()=> requestAnimationFrame(tick), 600);
+          io.unobserve(pair);
+        });
+      },{threshold:.35});
+      io.observe(pair);
+    }
+  });
 })();
