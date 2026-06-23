@@ -394,7 +394,7 @@ main{padding-top:80px}
 .studio_copy p{color:var(--ink_soft);max-width:48ch}
 .studio_media{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:240px 240px;gap:14px}
 .studio_media figure{border-radius:18px;overflow:hidden;margin:0}
-.studio_media img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.studio_media img{width:100%;height:100%;object-fit:cover}
 .studio_a{grid-row:1/3}
 .studio_a img{height:100%}
 .studio_b{grid-column:2;grid-row:1}
