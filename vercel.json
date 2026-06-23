@@ -4,6 +4,7 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "redirects": [
+    { "source": "/", "destination": "/en", "permanent": false },
     { "source": "/book", "destination": "/en/book", "permanent": false },
     { "source": "/services", "destination": "/en/services", "permanent": false },
     { "source": "/about", "destination": "/en/about", "permanent": false },

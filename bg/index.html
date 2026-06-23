@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>Urban от Деляна · Луксозен цвят за коса, Варна</title>
 <meta name="description" content="Изпипано боядисване на коса във Варна. Балеаж, многомерно русо, корекция на цвят и луксозни третирания от Деляна." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="../ruso ruso.avif" type="image/avif" imagesrcset="../img/sm/ruso ruso.avif 700w, ../ruso ruso.avif 1200w" imagesizes="100vw" fetchpriority="high" />
+<link rel="stylesheet" href="../fonts/fonts.css" />
 <link rel="stylesheet" href="../styles.css" />
 <link rel="stylesheet" href="../dist/style.css" />
 </head>
@@ -15,8 +14,8 @@
 
 <section class="hero" id="top">
   <div class="hero_media hero_reveal" data-reveal="50">
-    <img class="hero_img hero_img_bw" src="../ruso ruso.jpeg" alt="" />
-    <div class="hero_color"><img class="hero_img" src="../ruso ruso.jpeg" alt="" /></div>
+    <picture><source type="image/avif" srcset="../img/sm/ruso ruso.avif 700w, ../ruso ruso.avif 1200w" sizes="100vw" /><img class="hero_img hero_img_bw" src="../ruso ruso.webp" srcset="../img/sm/ruso ruso.webp 700w, ../ruso ruso.webp 1200w" sizes="100vw" width="1200" height="1200" fetchpriority="high" decoding="async" alt="" /></picture>
+    <div class="hero_color"><picture><source type="image/avif" srcset="../img/sm/ruso ruso.avif 700w, ../ruso ruso.avif 1200w" sizes="100vw" /><img class="hero_img" src="../ruso ruso.webp" srcset="../img/sm/ruso ruso.webp 700w, ../ruso ruso.webp 1200w" sizes="100vw" width="1200" height="1200" fetchpriority="high" decoding="async" alt="" /></picture></div>
     <button class="hero_handle" aria-label="Дръпни за цвят"><span></span><span></span></button>
     <div class="hero_veil"></div>
   </div>
@@ -64,7 +63,7 @@
 <section class="section intro reveal">
   <div class="intro_lock">
     <div><span class="num">02</span><br/><span class="cap">Философия</span></div>
-    <p class="display_sm">Студио, посветено на един занаят. Цвят. Всеки нюанс е рисуван на ръка спрямо лицето, светлината, косата и живота, на който принадлежи. Без формули. Без преки пътища. Само резултат.</p>
+    <p class="display_sm">Студио, посветено на един занаят. <em>Цвят.</em> Всеки нюанс е рисуван на ръка спрямо лицето, светлината, косата и живота, на който принадлежи. Без формули. Без преки пътища. Само резултат.</p>
   </div>
 </section>
 
@@ -79,8 +78,8 @@
     <article class="case reveal">
       <div class="case_meta"><span class="case_no">№ 01</span><span class="case_service">Корекция на цвят</span></div>
       <div class="pair">
-        <figure class="tile reveal_tile" data-stagger="0"><img src="../rusa platina.jpeg" alt="" /></figure>
-        <figure class="tile reveal_tile" data-stagger="1"><img src="../ruso julto.jpeg" alt="" /></figure>
+        <figure class="tile reveal_tile" data-stagger="0"><img src="../rusa platina.webp" alt="" loading="lazy" decoding="async" /></figure>
+        <figure class="tile reveal_tile" data-stagger="1"><img src="../ruso julto.webp" alt="" loading="lazy" decoding="async" /></figure>
       </div>
       <div class="case_body">
         <h3>От месингов оттенък до плътна платина.</h3>
@@ -92,8 +91,8 @@
     <article class="case reveal">
       <div class="case_meta"><span class="case_no">№ 02</span><span class="case_service">Многомерно русо</span></div>
       <div class="pair">
-        <figure class="tile reveal_tile" data-stagger="0"><img src="../rusa toni.jpeg" alt="" /></figure>
-        <figure class="tile reveal_tile" data-stagger="1"><img src="../toni.jpeg" alt="" /></figure>
+        <figure class="tile reveal_tile" data-stagger="0"><img src="../rusa toni.webp" alt="" loading="lazy" decoding="async" /></figure>
+        <figure class="tile reveal_tile" data-stagger="1"><img src="../toni.webp" alt="" loading="lazy" decoding="async" /></figure>
       </div>
       <div class="case_body">
         <h3>Тихо, светещо русо.</h3>
@@ -112,16 +111,16 @@
     <h2 class="display"><span>Премислени услуги,</span> <em>един занаят.</em></h2>
   </header>
   <ol class="services_list">
-    <li class="service reveal" data-service="balayage"><span class="service_no">I</span><div class="service_body"><h3>Балеаж</h3><p>Рисувани светли акценти, които следват архитектурата на косата. Меки в корена, светещи към върховете.</p></div><span class="service_from">от 4ч</span><a class="btn btn_ghost service_book" href="#" data-book-service="balayage"><span>Запази</span></a></li>
-    <li class="service reveal" data-service="dimensional_blonde"><span class="service_no">II</span><div class="service_body"><h3>Многомерно русо</h3><p>Многотонни блондове в няколко слоя. Фини кичури, меки бейбилайтс, индивидуален тонер.</p></div><span class="service_from">от 5ч</span><a class="btn btn_ghost service_book" href="#" data-book-service="dimensional_blonde"><span>Запази</span></a></li>
-    <li class="service reveal" data-service="color_correction"><span class="service_no">III</span><div class="service_body"><h3>Корекция на цвят</h3><p>Месинг, ивици, изтънели краища. С търпение и протокол около целостта на косата.</p></div><span class="service_from">с консултация</span><a class="btn btn_ghost service_book" href="#" data-book-service="color_correction"><span>Запази</span></a></li>
+    <li class="service reveal" data-service="balayage"><span class="service_no">I</span><div class="service_body"><h3>Балеаж</h3><p>Рисувани светли акценти, които следват архитектурата на косата. Меки в корена, светещи към върховете.</p></div><span class="service_from"><span class="service_price">от 450 €</span><span>от 4ч</span></span><a class="btn btn_ghost service_book" href="#" data-book-service="balayage"><span>Запази</span></a></li>
+    <li class="service reveal" data-service="dimensional_blonde"><span class="service_no">II</span><div class="service_body"><h3>Многомерно русо</h3><p>Многотонни блондове в няколко слоя. Фини кичури, меки бейбилайтс, индивидуален тонер.</p></div><span class="service_from"><span class="service_price">от 550 €</span><span>от 5ч</span></span><a class="btn btn_ghost service_book" href="#" data-book-service="dimensional_blonde"><span>Запази</span></a></li>
+    <li class="service reveal" data-service="color_correction"><span class="service_no">III</span><div class="service_body"><h3>Корекция на цвят</h3><p>Месинг, ивици, изтънели краища. С търпение и протокол около целостта на косата.</p></div><span class="service_from"><span class="service_price">от 450 €</span><span>с консултация</span></span><a class="btn btn_ghost service_book" href="#" data-book-service="color_correction"><span>Запази</span></a></li>
   </ol>
   <div style="text-align:center;margin-top:48px"><a class="link_under" href="/bg/services">Виж всички услуги →</a></div>
 </section>
 
 <section class="section about">
   <div class="about_media reveal">
-    <img src="../IMG_5954.jpg" alt="Деляна, основател на Urban" />
+    <img src="../IMG_5954.webp" alt="Деляна, основател на Urban" loading="lazy" decoding="async" />
     <span class="about_caption">Любимото на Деляна · Основател и колорист</span>
   </div>
   <div class="about_copy">
@@ -162,7 +161,6 @@
   <a class="btn btn_solid" href="#" data-book-service><span>Запази консултация</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
 </section>
 
-<script src="../script.js"></script>
-<script type="module" src="../dist/booking.js"></script>
+<script src="../script.js" defer></script>
 </body>
 </html>

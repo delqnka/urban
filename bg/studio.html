@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>Студиото · Urban от Деляна</title>
 <meta name="description" content="Студиото. Северна светлина, три стола, само с резервация. Варна, България." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../fonts/fonts.css" />
 <link rel="stylesheet" href="../styles.css" />
 <link rel="stylesheet" href="../dist/style.css" />
 </head>
@@ -29,9 +27,9 @@
     <p>Предлагаме ти еспресо, чай или нищо. Някои клиенти работят. Други спят. Други четат. Студиото се адаптира към жената в стола.</p>
   </div>
   <div class="studio_media reveal">
-    <figure class="studio_a"><img src="../siva3.jpeg" alt="" /></figure>
-    <figure class="studio_b"><img src="../ruso.jpeg" alt="" /></figure>
-    <figure class="studio_c"><img src="../sivo bob.jpeg" alt="" /></figure>
+    <figure class="studio_a"><img src="../siva3.webp" alt="" fetchpriority="high" decoding="async" /></figure>
+    <figure class="studio_b"><img src="../ruso.webp" alt="" loading="lazy" decoding="async" /></figure>
+    <figure class="studio_c"><img src="../sivo bob.webp" alt="" loading="lazy" decoding="async" /></figure>
   </div>
 </section>
 
@@ -66,7 +64,6 @@
   </div>
 </section>
 
-<script src="../script.js"></script>
-<script type="module" src="../dist/booking.js"></script>
+<script src="../script.js" defer></script>
 </body>
 </html>

@@ -8,13 +8,13 @@
     en:{
       nav:{work:'Transformations',services:'Services',about:'Delyana',studio:'Studio',voices:'Reviews',contact:'Contact',book:'Book'},
       brand:{l1:'Urban',l2:'by Delyana'},
-      footer:{visit:'Visit',hours:'Hours',contact:'Contact',social:'Follow',hoursv:'Tue to Sat · 10:00 to 19:00<br/>Sun &amp; Mon · By appointment',crafted:'Crafted with care · Varna'},
+      footer:{visit:'Visit',hours:'Hours',contact:'Contact',social:'Follow',hoursv:'Tue to Sat · 10:00 to 19:00<br/>Sun &amp; Mon · By appointment',crafted:'Crafted with care · Varna',addr:'Kyustendzha 22<br/>Varna 9000, Bulgaria'},
       menu:'Menu',close:'Close'
     },
     bg:{
       nav:{work:'Трансформации',services:'Услуги',about:'Деляна',studio:'Студио',voices:'Мнения',contact:'Контакт',book:'Резервация'},
       brand:{l1:'Urban',l2:'от Деляна'},
-      footer:{visit:'Локация',hours:'Часове',contact:'Контакт',social:'Последвай',hoursv:'Вторник до Събота · 10:00 до 19:00<br/>Неделя и Понеделник · По уговорка',crafted:'Създадено с грижа · Варна'},
+      footer:{visit:'Локация',hours:'Часове',contact:'Контакт',social:'Последвай',hoursv:'Вторник до Събота · 10:00 до 19:00<br/>Неделя и Понеделник · По уговорка',crafted:'Създадено с грижа · Варна',addr:'Кюстенджа 22<br/>Варна 9000, България'},
       menu:'Меню',close:'Затвори'
     }
   };
@@ -93,7 +93,7 @@
       <div class="foot_cols">
         <div>
           <span class="cap">${t.footer.visit}</span>
-          <p>ул. Цар Симеон I 12<br/>Varna, Bulgaria</p>
+          <p>${t.footer.addr}</p>
         </div>
         <div>
           <span class="cap">${t.footer.hours}</span>
@@ -105,7 +105,7 @@
         </div>
         <div>
           <span class="cap">${t.footer.social}</span>
-          <p><a href="#" class="link_under">Instagram</a><br/><a href="#" class="link_under">Pinterest</a></p>
+          <p><a href="https://www.instagram.com/urbanvarna/" target="_blank" rel="noopener" class="link_under">Instagram</a><br/><a href="https://www.facebook.com/urbanvarna" target="_blank" rel="noopener" class="link_under">Facebook</a></p>
         </div>
       </div>
       <div class="foot_base">
@@ -252,10 +252,12 @@
     if (t) e.preventDefault();
   }, true);
 
-  /* Auto-load the booking SDK on every page so the modal + click
-     delegation work site-wide, not just on /en/book and /bg/book.
-     Idempotent: skips if already loaded by an inline <script>. */
-  if (!document.querySelector('script[data-clicka-booking-js]')) {
+  /* Lazy-load the booking SDK to keep initial JS small.
+     Loads on first user interaction with a book trigger, or after
+     the browser is idle (whichever fires first). On /book pages it
+     loads immediately since the embedded widget needs it. */
+  const loadBookingSdk = () => {
+    if (document.querySelector('script[data-clicka-booking-js]')) return;
     const css = document.createElement('link');
     css.rel = 'stylesheet';
     css.href = '/dist/style.css';
@@ -266,6 +268,20 @@
     js.src = '/dist/booking.js';
     js.setAttribute('data-clicka-booking-js', '');
     document.head.appendChild(js);
+  };
+  const onBook = document.body && document.body.dataset.page === 'book';
+  if (onBook) {
+    loadBookingSdk();
+  } else {
+    const trigger = () => loadBookingSdk();
+    document.addEventListener('pointerdown', (e) => {
+      if (e.target instanceof Element && e.target.closest('[data-clicka-book],[data-book-service],[data-book]')) trigger();
+    }, { once: false, capture: true });
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(trigger, { timeout: 4000 });
+    } else {
+      setTimeout(trigger, 2500);
+    }
   }
 })();
 
@@ -438,9 +454,9 @@
 
   /* ─── service row image peek ──────────────────── */
   const peekMap = {
-    balayage: '../rusa toni.jpeg',
-    dimensional_blonde: '../toni.jpeg',
-    color_correction: '../rusa platina.jpeg'
+    balayage: '../rusa toni.webp',
+    dimensional_blonde: '../toni.webp',
+    color_correction: '../rusa platina.webp'
   };
   document.querySelectorAll('.service[data-service]').forEach((row)=>{
     const slug = row.dataset.service;

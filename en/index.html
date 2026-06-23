@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>Urban by Delyana · Luxury Hair Color, Varna</title>
 <meta name="description" content="Bespoke hair color crafted in Varna. Balayage, dimensional blonde, color correction and luxury treatments by Delyana." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="../ruso ruso.avif" type="image/avif" imagesrcset="../img/sm/ruso ruso.avif 700w, ../ruso ruso.avif 1200w" imagesizes="100vw" fetchpriority="high" />
+<link rel="stylesheet" href="../fonts/fonts.css" />
 <link rel="stylesheet" href="../styles.css" />
 <link rel="stylesheet" href="../dist/style.css" />
 </head>
@@ -15,8 +14,8 @@
 
 <section class="hero" id="top">
   <div class="hero_media hero_reveal" data-reveal="50">
-    <img class="hero_img hero_img_bw" src="../ruso ruso.jpeg" alt="" />
-    <div class="hero_color"><img class="hero_img" src="../ruso ruso.jpeg" alt="" /></div>
+    <picture><source type="image/avif" srcset="../img/sm/ruso ruso.avif 700w, ../ruso ruso.avif 1200w" sizes="100vw" /><img class="hero_img hero_img_bw" src="../ruso ruso.webp" srcset="../img/sm/ruso ruso.webp 700w, ../ruso ruso.webp 1200w" sizes="100vw" width="1200" height="1200" fetchpriority="high" decoding="async" alt="" /></picture>
+    <div class="hero_color"><picture><source type="image/avif" srcset="../img/sm/ruso ruso.avif 700w, ../ruso ruso.avif 1200w" sizes="100vw" /><img class="hero_img" src="../ruso ruso.webp" srcset="../img/sm/ruso ruso.webp 700w, ../ruso ruso.webp 1200w" sizes="100vw" width="1200" height="1200" fetchpriority="high" decoding="async" alt="" /></picture></div>
     <button class="hero_handle" aria-label="Drag to reveal color"><span></span><span></span></button>
     <div class="hero_veil"></div>
   </div>
@@ -67,7 +66,7 @@
 <section class="section intro reveal">
   <div class="intro_lock">
     <div><span class="num">02</span><br/><span class="cap">Philosophy</span></div>
-    <p class="display_sm">A salon devoted to one craft. Color. Every shade is painted by hand to the face, the light, the hair and the life it belongs to. No formulas. No shortcuts. Only the result.</p>
+    <p class="display_sm">A salon devoted to one craft. <em>Color.</em> Every shade is painted by hand to the face, the light, the hair and the life it belongs to. No formulas. No shortcuts. Only the result.</p>
   </div>
 </section>
 
@@ -82,8 +81,8 @@
     <article class="case reveal">
       <div class="case_meta"><span class="case_no">No. 01</span><span class="case_service">Color Correction</span></div>
       <div class="pair">
-        <figure class="tile reveal_tile" data-stagger="0"><img src="../rusa platina.jpeg" alt="" /></figure>
-        <figure class="tile reveal_tile" data-stagger="1"><img src="../ruso julto.jpeg" alt="" /></figure>
+        <figure class="tile reveal_tile" data-stagger="0"><img src="../rusa platina.webp" loading="lazy" decoding="async" alt="" /></figure>
+        <figure class="tile reveal_tile" data-stagger="1"><img src="../ruso julto.webp" loading="lazy" decoding="async" alt="" /></figure>
       </div>
       <div class="case_body">
         <h3>From brass to seamless platinum.</h3>
@@ -95,8 +94,8 @@
     <article class="case reveal">
       <div class="case_meta"><span class="case_no">No. 02</span><span class="case_service">Dimensional Blonde</span></div>
       <div class="pair">
-        <figure class="tile reveal_tile" data-stagger="0"><img src="../rusa toni.jpeg" alt="" /></figure>
-        <figure class="tile reveal_tile" data-stagger="1"><img src="../toni.jpeg" alt="" /></figure>
+        <figure class="tile reveal_tile" data-stagger="0"><img src="../rusa toni.webp" loading="lazy" decoding="async" alt="" /></figure>
+        <figure class="tile reveal_tile" data-stagger="1"><img src="../toni.webp" loading="lazy" decoding="async" alt="" /></figure>
       </div>
       <div class="case_body">
         <h3>A quiet, luminous blonde.</h3>
@@ -117,16 +116,16 @@
     <h2 class="display"><span>Considered services,</span> <em>one craft.</em></h2>
   </header>
   <ol class="services_list">
-    <li class="service reveal" data-service="balayage"><span class="service_no">I</span><div class="service_body"><h3>Balayage</h3><p>Painted lights that follow the architecture of your hair. Soft at the root, luminous through the lengths.</p></div><span class="service_from">from 4h</span><a class="btn btn_ghost service_book" href="#" data-book-service="balayage"><span>Book</span></a></li>
-    <li class="service reveal" data-service="dimensional_blonde"><span class="service_no">II</span><div class="service_body"><h3>Dimensional Blonde</h3><p>Multitonal blondes built in layers. Fine highlights, soft babylights, custom toner.</p></div><span class="service_from">from 5h</span><a class="btn btn_ghost service_book" href="#" data-book-service="dimensional_blonde"><span>Book</span></a></li>
-    <li class="service reveal" data-service="color_correction"><span class="service_no">III</span><div class="service_body"><h3>Color Correction</h3><p>Brass, bands, breakage. Corrected with patience and a protocol designed around the integrity of your hair.</p></div><span class="service_from">by consultation</span><a class="btn btn_ghost service_book" href="#" data-book-service="color_correction"><span>Book</span></a></li>
+    <li class="service reveal" data-service="balayage"><span class="service_no">I</span><div class="service_body"><h3>Balayage</h3><p>Painted lights that follow the architecture of your hair. Soft at the root, luminous through the lengths.</p></div><span class="service_from"><span class="service_price">from 450 €</span><span>from 4h</span></span><a class="btn btn_ghost service_book" href="#" data-book-service="balayage"><span>Book</span></a></li>
+    <li class="service reveal" data-service="dimensional_blonde"><span class="service_no">II</span><div class="service_body"><h3>Dimensional Blonde</h3><p>Multitonal blondes built in layers. Fine highlights, soft babylights, custom toner.</p></div><span class="service_from"><span class="service_price">from 550 €</span><span>from 5h</span></span><a class="btn btn_ghost service_book" href="#" data-book-service="dimensional_blonde"><span>Book</span></a></li>
+    <li class="service reveal" data-service="color_correction"><span class="service_no">III</span><div class="service_body"><h3>Color Correction</h3><p>Brass, bands, breakage. Corrected with patience and a protocol designed around the integrity of your hair.</p></div><span class="service_from"><span class="service_price">from 450 €</span><span>by consultation</span></span><a class="btn btn_ghost service_book" href="#" data-book-service="color_correction"><span>Book</span></a></li>
   </ol>
   <div style="text-align:center;margin-top:48px"><a class="link_under" href="/en/services">See all services →</a></div>
 </section>
 
 <section class="section about">
   <div class="about_media reveal">
-    <img src="../IMG_5954.jpg" alt="Delyana, founder of Urban" />
+    <img src="../IMG_5954.webp" loading="lazy" decoding="async" alt="Delyana, founder of Urban" />
     <span class="about_caption">Delyana's favourite · Founder and Colorist</span>
   </div>
   <div class="about_copy">
@@ -167,7 +166,6 @@
   <a class="btn btn_solid" href="#" data-book-service><span>Book a consultation</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
 </section>
 
-<script src="../script.js"></script>
-<script type="module" src="../dist/booking.js"></script>
+<script src="../script.js" defer></script>
 </body>
 </html>
