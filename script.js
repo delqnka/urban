@@ -64,8 +64,8 @@
       </button>
     </div>
     <div class="sheet_links">
-      ${navOrder.map(p=>`<a href="${link(p)}">${t.nav[p]} <em>↗</em></a>`).join('')}
-      <a href="#" data-book-service>${t.nav.book} <em>↗</em></a>
+      ${navOrder.map(p=>`<a href="${link(p)}">${t.nav[p]}</a>`).join('')}
+      <a href="#" data-book-service>${t.nav.book}</a>
     </div>
     <div class="sheet_foot">
       <div class="lang">
@@ -116,10 +116,18 @@
   document.body.appendChild(foot);
 
   /* ── nav scroll state ────────────────────────── */
+  let navScrolled = false, navTicking = false;
   const onScroll = ()=>{
-    header.classList.toggle('is_scrolled', window.scrollY > 24);
+    const next = window.scrollY > 24;
+    if(next !== navScrolled){
+      navScrolled = next;
+      header.classList.toggle('is_scrolled', next);
+    }
+    navTicking = false;
   };
-  document.addEventListener('scroll', onScroll, {passive:true});
+  document.addEventListener('scroll', ()=>{
+    if(!navTicking){ requestAnimationFrame(onScroll); navTicking = true; }
+  }, {passive:true});
   onScroll();
 
   /* ── reveal observer — failsafe pattern ──────────────────────────────────────
@@ -307,12 +315,16 @@
   prog.className = 'sprog';
   prog.setAttribute('aria-hidden','true');
   document.body.appendChild(prog);
+  let progTicking = false;
   const onProg = ()=>{
     const max = docEl.scrollHeight - window.innerHeight;
     const p = max > 0 ? (window.scrollY / max) * 100 : 0;
     prog.style.setProperty('--p', p.toFixed(2)+'%');
+    progTicking = false;
   };
-  window.addEventListener('scroll', onProg, {passive:true});
+  window.addEventListener('scroll', ()=>{
+    if(!progTicking){ requestAnimationFrame(onProg); progTicking = true; }
+  }, {passive:true});
   onProg();
 
   /* ─── precision cursor (desktop, fine pointer) ── */
@@ -470,7 +482,8 @@
   });
 
   /* ─── gentle parallax on tiles ────────────────── */
-  if(!reduce && 'IntersectionObserver' in window){
+  const isCoarse = window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(max-width: 1024px)').matches;
+  if(!reduce && !isCoarse && 'IntersectionObserver' in window){
     const tiles = document.querySelectorAll('.tile');
     if(tiles.length){
       let ticking = false;

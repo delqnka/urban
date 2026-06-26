@@ -8,10 +8,12 @@
 <link rel="preload" as="image" href="../ruso ruso.avif" type="image/avif" imagesrcset="../img/sm/ruso ruso.avif 700w, ../ruso ruso.avif 1200w" imagesizes="100vw" fetchpriority="high" />
 <link rel="stylesheet" href="../fonts/fonts.css" />
 <link rel="stylesheet" href="../styles.css" />
-<link rel="stylesheet" href="../dist/style.css" />
+<link rel="preload" href="../dist/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="../dist/style.css" /></noscript>
 </head>
 <body data-page="home" data-lang="bg">
 
+<main>
 <section class="hero" id="top">
   <div class="hero_media hero_reveal" data-reveal="50">
     <picture><source type="image/avif" srcset="../img/sm/ruso ruso.avif 700w, ../ruso ruso.avif 1200w" sizes="100vw" /><img class="hero_img hero_img_bw" src="../ruso ruso.webp" srcset="../img/sm/ruso ruso.webp 700w, ../ruso ruso.webp 1200w" sizes="100vw" width="1200" height="1200" fetchpriority="high" decoding="async" alt="" /></picture>
@@ -29,13 +31,11 @@
     <p class="lede">Изпипано боядисване с намерение, за жената, която цени тихия лукс на безупречния резултат.</p>
     <div class="hero_cta">
       <a class="btn btn_solid" href="#" data-book-service>
-        <span>Запази консултация</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span>Запази онлайн</span>
       </a>
-      <a class="link_under" href="work.html">Виж работата →</a>
+      <a class="link_under" href="work.html">Виж нашата работа</a>
     </div>
   </div>
-  <div class="hero_index"><span class="num">01</span><span class="cap">Начало</span></div>
 </section>
 
 <div class="marquee" aria-hidden="true">
@@ -97,7 +97,7 @@
     </article>
   </div>
 
-  <div style="text-align:center;margin-top:64px"><a class="link_under" href="work.html">Виж всички трансформации →</a></div>
+  <div style="text-align:center;margin-top:64px"><a class="link_under" href="work.html">Виж всички трансформации</a></div>
 </section>
 
 <section class="section" style="background:var(--paper)">
@@ -110,7 +110,7 @@
     <li class="service reveal" data-service="dimensional_blonde"><span class="service_no">II</span><div class="service_body"><h3>Многомерно русо</h3><p>Многотонни блондове в няколко слоя. Фини кичури, меки бейбилайтс, индивидуален тонер.</p></div><span class="service_from"><span class="service_price">от 550 €</span><span>от 5ч</span></span><a class="btn btn_ghost service_book" href="#" data-book-service="dimensional_blonde"><span>Запази</span></a></li>
     <li class="service reveal" data-service="color_correction"><span class="service_no">III</span><div class="service_body"><h3>Корекция на цвят</h3><p>Месинг, ивици, изтънели краища. С търпение и протокол около целостта на косата.</p></div><span class="service_from"><span class="service_price">от 450 €</span><span>с консултация</span></span><a class="btn btn_ghost service_book" href="#" data-book-service="color_correction"><span>Запази</span></a></li>
   </ol>
-  <div style="text-align:center;margin-top:48px"><a class="link_under" href="/bg/services">Виж всички услуги →</a></div>
+  <div style="text-align:center;margin-top:48px"><a class="link_under" href="/bg/services">Виж всички услуги</a></div>
 </section>
 
 <section class="section about">
@@ -124,7 +124,7 @@
     <p>Над десетилетие Деляна работи изключително с цвят. Изучава как се държи светлината в косата, как нюансът чете кожата, как тихата тонална промяна променя начина, по който една жена носи себе си.</p>
     <p>Всеки час започва с дълъг, неприбързан разговор. Цветът идва след това.</p>
     <blockquote class="pull">„Цветът не бива да заявява себе си. Той трябва да те направи да се чувстваш повече себе си.“</blockquote>
-    <a class="link_under" href="about.html">Прочети историята →</a>
+    <a class="link_under" href="about.html">Прочети историята</a>
   </div>
 </section>
 
@@ -147,14 +147,15 @@
       <footer><span>Ива К.</span> · <em>Редактор</em></footer>
     </blockquote>
   </div>
-  <div style="text-align:center;margin-top:48px"><a class="link_under" href="voices.html">Прочети повече →</a></div>
+  <div style="text-align:center;margin-top:48px"><a class="link_under" href="voices.html">Прочети повече</a></div>
 </section>
 
 <section class="section" style="text-align:center">
   <div class="head_row" style="justify-content:center"><span class="num">07</span><span class="cap">Резервация</span></div>
   <h2 class="display" style="margin:28px auto 36px;max-width:14ch"><span>Запази своя</span> <em>стол.</em></h2>
-  <a class="btn btn_solid" href="#" data-book-service><span>Запази консултация</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+  <a class="btn btn_solid" href="#" data-book-service><span>Запази онлайн</span></a>
 </section>
+</main>
 
 <script src="../script.js" defer></script>
 </body>
